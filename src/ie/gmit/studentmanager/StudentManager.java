@@ -64,7 +64,7 @@ public class StudentManager implements Serializable {
 
 	public boolean deleteStudentById(String studentId) {
 		// Search for the Student by ID
-		Student student = findStudentById(studentId);
+		Student student = searchForStudentById(studentId);
 		// If a Student was found then delete the student
 		if (student != null) {
 			return deleteStudent(student);
@@ -74,7 +74,7 @@ public class StudentManager implements Serializable {
 		}
 	}
 
-	public Student findStudentById(String studentId) {
+    public Student searchForStudentById(String studentId) {
 
 		// Loop over (i.e. Iterate over) arrayList for Student type elements in
 		// the students ArrayList

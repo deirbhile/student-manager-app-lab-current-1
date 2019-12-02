@@ -41,25 +41,30 @@ public class Main extends Application implements Serializable {
 
         });
 
-        // Add Student arrangement
-        Button btnAddStudent = new Button("Add Student");
+        // Add Student
         TextField tfStudentID = new TextField();
+        TextField tfStudentFirstName = new TextField();
+        TextField tfStudentSurname = new TextField();
 
-        tfStudentID.setPromptText("Enter Student ID");
+        Button btnAddStudent = new Button("Add Student");
+        
+        tfStudentID.setPromptText("Student ID");
+        tfStudentFirstName.setPromptText("First Name");
+        tfStudentSurname.setPromptText("Surname");
 
         btnAddStudent.setOnAction(e -> {
             if (tfStudentID.getText().trim().equals("")) { // If text field is empty
-
                 taMyOutput.setText("Invalid");
             } else {
-
-                Student student = new Student(tfStudentID.getText());
+                Student student = new Student(tfStudentID.getText(), tfStudentFirstName.getText(), tfStudentSurname.getText());
                 sm.addStudent(student); // Add student to student list
                 tfStudentID.clear();
+                tfStudentFirstName.clear();
+                tfStudentSurname.clear();
             }
         });
 
-        // Delete Student arrangement
+        // Delete Student
         TextField tfStudentDel = new TextField();
         Button btnDelStudent = new Button("Delete Student");
 
@@ -70,6 +75,23 @@ public class Main extends Application implements Serializable {
             sm.deleteStudentById(tfStudentDel.getText());
 
         });
+
+        // Search for Student by ID
+        TextField tfStudentSearch = new TextField();
+        Button btnStudentSearch = new Button("Search By ID");
+
+        tfStudentSearch.setPromptText("Enter Student ID");
+
+        btnStudentSearch.setOnAction(e -> {
+
+            Student studentObj = sm.searchForStudentById(tfStudentSearch.getText());
+            taMyOutput.setText(studentObj.getFirstName() + " " + studentObj.getSurname());
+
+        });
+
+
+
+
 
         // Save to DB
         Button btnSaveDB = new Button("Save Students to DB");
@@ -121,16 +143,24 @@ public class Main extends Application implements Serializable {
         // Adding and arranging all the nodes in the grid - add(node, column, row)
         GridPane gridPane1 = new GridPane();
         gridPane1.add(tfStudentID, 0, 0);
-        gridPane1.add(btnAddStudent, 1, 0);
+        gridPane1.add(tfStudentFirstName, 1, 0);
+        gridPane1.add(tfStudentSurname, 2, 0);
+        gridPane1.add(btnAddStudent, 3, 0);
+        
+        
         gridPane1.add(btnShowTotal, 0, 1);
         gridPane1.add(tfTotalNumberOfStudents, 1, 1);
         gridPane1.add(tfStudentDel, 0, 2);
         gridPane1.add(btnDelStudent, 1, 2);
-        gridPane1.add(btnSaveDB, 0, 3);
-        gridPane1.add(btnLoadDB, 0, 4);
-        gridPane1.add(tfLoadStudents, 1, 4);
-        gridPane1.add(taMyOutput, 0, 5, 2, 1);
-        gridPane1.add(btnQuit, 0, 6);
+
+        gridPane1.add(tfStudentSearch, 0, 3);
+        gridPane1.add(btnStudentSearch, 1, 3);
+        
+        gridPane1.add(btnSaveDB, 0, 4);
+        gridPane1.add(btnLoadDB, 0, 5);
+        gridPane1.add(tfLoadStudents, 1, 5);
+        gridPane1.add(taMyOutput, 0, 6, 2, 1);
+        gridPane1.add(btnQuit, 0, 7);
 
         // Preparing the Stage (i.e. the container of any JavaFX application)
         // Create a Scene by passing the root group object, height and width

@@ -99,7 +99,7 @@ public class Menu {
 	private void searchByID() {
 		System.out.println("Enter Student ID>");
 		String studentId = userInput.next();
-		Student student1 = studentManagerObject.findStudentById(studentId);
+		Student student1 = studentManagerObject.searchForStudentById(studentId);
 		if (student1 == null) {
 			System.out.println("Student NOT found!");
 		} else {
